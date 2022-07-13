@@ -2198,7 +2198,7 @@ static int wpa_supplicant_ctrl_iface_ctrl_rsp(struct wpa_supplicant *wpa_s,
 }
 
 
-static int wpa_supplicant_ctrl_iface_status(struct wpa_supplicant *wpa_s,
+int wpa_supplicant_ctrl_iface_status(struct wpa_supplicant *wpa_s,
 					    const char *params,
 					    char *buf, size_t buflen)
 {

@@ -124,10 +124,20 @@ void wpas_ctrl_radio_work_flush(struct wpa_supplicant *wpa_s);
 
 #else /* CONFIG_CTRL_IFACE */
 
+/**
+ * This is a workaround for missing connection status readout in
+ * in the wpa_supplicant_* API. TODO: make private again when the
+ * supplicant API is extended.
+ */
+int wpa_supplicant_ctrl_iface_status(struct wpa_supplicant *wpa_s,
+					    const char *params,
+					    char *buf, size_t buflen);
+
+
 static inline struct ctrl_iface_priv *
 wpa_supplicant_ctrl_iface_init(struct wpa_supplicant *wpa_s)
 {
-	return (void *) -1;
+	return (ctrl_iface_priv *) -1;
 }
 
 static inline void
@@ -150,7 +160,7 @@ wpa_supplicant_ctrl_iface_wait(struct ctrl_iface_priv *priv)
 static inline struct ctrl_iface_global_priv *
 wpa_supplicant_global_ctrl_iface_init(struct wpa_global *global)
 {
-	return (void *) 1;
+	return (ctrl_iface_global_priv *) 1;
 }
 
 static inline void
